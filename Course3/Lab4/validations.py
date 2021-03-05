@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import re
+import string
 
 def validate_user(username, minlen):
     """Checks if the received username matches the required conditions."""
@@ -13,6 +14,9 @@ def validate_user(username, minlen):
     if len(username) < minlen:
         return False
     # Usernames can only use letters, numbers, dots and underscores
+    if username[0] not in string.ascii_letters:
+        return False 
+
     if not re.match('^[a-z0-9._]*$', username):
         return False
     # Usernames can't begin with a number
@@ -21,4 +25,8 @@ def validate_user(username, minlen):
     return True
 
 
+print(validate_user("blue.kale", 3))
+print(validate_user(".blue.kale",3))
+print(validate_user("red_quinoa",4))
+print(validate_user("_red_quinoa",4))
 
